@@ -15,6 +15,8 @@
             http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
 
     <bean id="MyCar" class="com.smart.Car"
+          init-method="myInit"
+          destroy-method="myDestroy"
           p:brand="Nissan X-Trail"
           p:color="Red"
           p:maxSpeed="220"/>
