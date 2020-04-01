@@ -2,22 +2,30 @@ package com.smart;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.*;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 
 /**
  * Bean Life Cycle Interface
- * BeanFactoryAware    -      setBeanFactory()
  * BeanNameAware       -      setBeanName()
+ * BeanFactoryAware    -      setBeanFactory()
  * InitializingBean    -      afterPropertiesSet()
  * DisposableBean      -      destroy()
+ * ApplicationContextAware -  for applicationContext
  */
 
-public class Car implements BeanFactoryAware, BeanNameAware, InitializingBean, DisposableBean {
+public class Car implements BeanFactoryAware, BeanNameAware, InitializingBean, DisposableBean , ApplicationContextAware {
     private String brand;
     private String color;
     private int maxSpeed;
 
     private BeanFactory beanFactory;
     private String beanName;
+
+    //constructor
+    public Car(){
+        System.out.println("Car -> Constructor");
+    }
 
     //BeanFactoryAware
     public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
@@ -35,7 +43,9 @@ public class Car implements BeanFactoryAware, BeanNameAware, InitializingBean, D
     }
     //InitializingBean
     public void afterPropertiesSet() throws Exception {
-        System.out.println("InitializingBean - afterPropertiesSet");
+        System.out.println("InitializingBean - afterPropertiesSet -------");
+        System.out.println("Color-->" + this.getColor());
+        System.out.println("InitializingBean - afterPropertiesSet -------");
     }
 
     //bean property init-method define
@@ -89,4 +99,7 @@ public class Car implements BeanFactoryAware, BeanNameAware, InitializingBean, D
     }
 
 
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        System.out.println("ApplicationContextAware - setApplicationContext");
+    }
 }
